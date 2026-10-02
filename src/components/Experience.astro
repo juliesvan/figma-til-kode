@@ -1,0 +1,130 @@
+---
+import { getExperience } from "../lib/api.js";
+const experience = await getExperience();
+---
+
+<section class="exp-container">
+  <div class="exp-content">
+    <p>{experience.eyebrow}</p>
+    <h3>{experience.title}</h3>
+    <p>{experience.subtitle}</p>
+  </div>
+  <div class="exp-diagrams">
+    <figure data-value="85">
+      <svg viewBox="0 0 100 100">
+        <circle class="track"></circle>
+        <circle class="progress" pathLength="100"></circle>
+        <circle class="marker"></circle>
+      </svg>
+      <h4>{experience.stats[0].label}</h4>
+    </figure>
+
+    <figure data-value="95">
+      <svg viewBox="0 0 100 100">
+        <circle class="track"></circle>
+        <circle class="progress" pathLength="100"></circle>
+        <circle class="marker"></circle>
+      </svg>
+      <h4>{experience.stats[1].label}</h4>
+    </figure>
+
+    <figure data-value="90">
+      <svg viewBox="0 0 100 100">
+        <circle class="track"></circle>
+        <circle class="progress" pathLength="100"></circle>
+        <circle class="marker"></circle>
+      </svg>
+      <h4>{experience.stats[2].label}</h4>
+    </figure>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    @property --progress {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    .exp-container {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+
+      background-color: var(--color-surface-highlight);
+      padding-block: var(--padding-section-block);
+      border: 1px solid #000;
+    }
+
+    .exp-content {
+      grid-column: content-start / middle;
+    }
+
+    .exp-diagrams {
+      grid-column: middle / content-end;
+
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    figure {
+      flex: 0 1 200px;
+      min-inline-size: 0;
+      text-align: center;
+
+      --value-string: attr(data-value);
+      --value-number: attr(data-value number);
+      --value-percent: attr(data-value %);
+
+      display: grid;
+      grid: "stack";
+      container: stat / inline-size;
+      place-items: center;
+    }
+
+    figure::after {
+      content: var(--value-string) "%";
+      grid-area: stack;
+      font-size: 30cqw;
+      font-weight: 700;
+    }
+
+    svg {
+      grid-area: stack;
+      rotate: -90deg;
+    }
+
+    .track {
+      stroke: #daae3c;
+    }
+
+    .track,
+    .progress {
+      cx: 50;
+      cy: 50;
+      r: 46;
+      fill: none;
+      stroke-width: 4;
+    }
+
+    .progress {
+      stroke: #fff;
+      stroke-linecap: round;
+
+      stroke-dasharray: 100.1;
+      stroke-dashoffset: calc(100 - var(--value-number));
+    }
+
+    .marker {
+      r: 4;
+      fill: #000;
+      stroke: #fff;
+      stroke-width: 2px;
+      offset-path: circle(46px at 50px 50px);
+      offset-distance: var(--value-percent);
+    }
+  }
+</style>

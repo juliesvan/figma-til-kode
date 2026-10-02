@@ -1,0 +1,147 @@
+---
+// Fetch
+import { getCoreValues } from "../lib/api.js";
+const coreValues = await getCoreValues();
+
+// Ikoner
+import Layers from "@icons/layers.svg";
+import Bars from "@icons/bars.svg";
+import Globe from "@icons/globe.svg";
+import Gear from "@icons/gear.svg";
+import ArrowRight from "@icons/arrow--right.svg";
+
+const icons = {
+  layers: Layers,
+  bars: Bars,
+  globe: Globe,
+  gear: Gear,
+};
+---
+
+<section class="core-values-container">
+  <article class="core-values-content">
+    <header>
+      <div class="core-values-text">
+        <p class="eyebrow">{coreValues.eyebrow}</p>
+        <h4>{coreValues.title}</h4>
+        <p>{coreValues.subtitle}</p>
+      </div>
+
+      <a href={coreValues.button.link}>{coreValues.button.text}</a>
+    </header>
+
+    <div class="core-values-cards">
+      {
+        coreValues.values.map((coreValue) => {
+          const Icon = icons[coreValue.icon];
+
+          return (
+            <article class="value-card">
+              <div class="icon">
+                <Icon />
+              </div>
+
+              <h4>{coreValue.title}</h4>
+              <p>{coreValue.description}</p>
+
+              <a href={coreValue.link.url}>
+                {coreValue.link.text}
+                <ArrowRight class="arrow" />
+              </a>
+            </article>
+          );
+        })
+      }
+    </div>
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .core-values-container {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+
+      background-color: var(--color-ui-primary);
+      padding-block: var(--padding-section-block);
+    }
+
+    .core-values-content {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: content-start / content-end;
+
+      header {
+        grid-column: content-start / content-end;
+
+        display: grid;
+        grid-template-columns: subgrid;
+      }
+
+      header a {
+        justify-self: end;
+        align-self: flex-end;
+
+        background-color: var(--color-on-ui-primary);
+        color: var(--color-text);
+        padding: var(--padding-btns);
+        border-radius: var(--border-radius-btns);
+        font-size: var(--font-size-btns);
+        font-weight: var(--font-weight-btns);
+        width: 10rem;
+        text-align: center;
+      }
+    }
+
+    .core-values-text {
+      grid-column: content-start / middle;
+      color: var(--color-on-ui-primary);
+    }
+
+    .core-values-cards {
+      display: grid;
+      grid-column: content-start / content-end;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+
+      padding-top: 2rem;
+    }
+
+    .value-card {
+      background-color: var(--color-surface-secondary);
+      padding: var(--padding-cards);
+      border-radius: var(--border-radius-cards);
+
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+      }
+
+      h4 {
+        font-size: 1.25rem;
+      }
+
+      a {
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+        color: var(--color-text);
+        padding-top: 1rem;
+        font-weight: var(--font-weight-btns);
+      }
+
+      .arrow {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+</style>

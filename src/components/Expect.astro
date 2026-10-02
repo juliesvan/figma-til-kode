@@ -1,0 +1,72 @@
+---
+import Checkmark from "@icons/checkmark.svg";
+---
+
+<section class="expect-container">
+  <div class="expect-img">
+    <img src="" alt="" />
+  </div>
+  <div class="expect-content">
+    <p>WE'LL WORK WITH YOU</p>
+    <h3>What To Expect</h3>
+    <p>
+      Our collaboration is built on transparency, efficiency, and measurable
+      results. Together, we create strategies tailored to your unique needs and
+      goals.
+    </p>
+    <ul>
+      <li>
+        <Checkmark class="checkmark" />
+        Collaborate to build actionable strategies that drive sustainable growth and
+        deliver tangible outcomes.
+      </li>
+      <li>
+        <Checkmark class="checkmark" />
+        Identify opportunities to optimize processes and implement impactful solutions
+        with measurable results.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .expect-container {
+      grid-column: content-start / content-end;
+
+      padding-block: var(--padding-section-block);
+    }
+
+    .expect-img {
+      grid-column: content-start / middle;
+    }
+
+    .expect-content {
+      grid-column: middle / content-end;
+
+      p:first-child {
+        color: var(--color-text);
+        letter-spacing: var(--letter-spacing);
+      }
+
+      h3 {
+        color: var(--color-text);
+      }
+
+      h3 + p {
+        color: var(--color-text-muted);
+      }
+
+      li {
+        display: flex;
+        gap: 1rem;
+
+        color: var(--color-text-muted);
+      }
+
+      .checkmark {
+        color: var(--color-ui-secondary-alternative);
+      }
+    }
+  }
+</style>

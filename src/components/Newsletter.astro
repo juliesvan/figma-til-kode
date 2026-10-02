@@ -1,0 +1,78 @@
+---
+
+---
+
+<section>
+  <div class="newsletter-content">
+    <p>STAY UPDATED</p>
+    <h4>Subscribe Our Newsletter</h4>
+    <p>Build stronger Customer Relationships with <span>Consultalk</span></p>
+    <div>
+      <input type="text" placeholder="your mail address" />
+      <button>Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  @layer components {
+    section {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: full;
+      place-items: center;
+
+      background-color: var(--color-ui-primary);
+      padding-block: var(--padding-section-block);
+      border-bottom: 1px solid #2b3a58;
+    }
+
+    .newsletter-content {
+      grid-column: content-start / content-end;
+      text-align: center;
+
+      > div {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      p:first-child {
+        color: var(--color-action);
+        letter-spacing: 14.5%;
+      }
+
+      h4 {
+        color: var(--color-on-ui-primary);
+      }
+
+      h4 + p {
+        color: var(--color-text-weak);
+      }
+
+      span {
+        color: var(--color-action);
+        font-weight: 600;
+      }
+
+      input {
+        border: 1px solid var(--color-on-ui-primary-muted);
+        border-radius: 999px;
+        width: 350px;
+      }
+
+      input::placeholder {
+        color: var(--color-text-weak);
+        padding: 2rem;
+      }
+
+      button {
+        background-color: var(--color-action);
+        padding: var(--padding-btns);
+        border-radius: var(--border-radius-btns);
+        font-weight: var(--font-weight-btns);
+        width: 140px;
+      }
+    }
+  }
+</style>

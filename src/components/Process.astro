@@ -1,0 +1,40 @@
+---
+
+---
+
+<section class="process-container">
+  <article class="process-content">
+    <p>PROCESS</p>
+    <h3>Contact Us. It's Easy.</h3>
+    <p>
+      Leverage agile frameworks to provide a robust synopsis for high level
+      overviews. Iterative approaches to corporate strategy foster
+      collaborative.
+    </p>
+  </article>
+  <div class="process-grid-imgs">
+    <img src="" alt="" />
+    <img src="" alt="" />
+    <img src="" alt="" />
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .process-container {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+
+      padding-block: var(--padding-section-block);
+    }
+
+    .process-content {
+      grid-column: content-start / middle;
+    }
+
+    .process-grid.imgs {
+      grid-column: middle / content-end;
+    }
+  }
+</style>

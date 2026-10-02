@@ -1,0 +1,93 @@
+---
+import { getFinancialProjections } from "../lib/api.js";
+const financialProjections = await getFinancialProjections();
+
+// Ikoner
+import ArrowLeft from "@icons/arrow-left.svg";
+import ArrowRight from "@icons/arrow--right.svg";
+---
+
+<section class="fin-pro-container">
+  <article class="fin-pro-content">
+    <header class="fin-pro-header">
+      <p>{financialProjections.eyebrow}</p>
+      <h3>{financialProjections.title}</h3>
+      <p>{financialProjections.subtitle}</p>
+    </header>
+
+    <div class="arrows">
+      <button aria-label="Previous">
+        <ArrowLeft />
+      </button>
+      <button aria-label="Next">
+        <ArrowRight />
+      </button>
+    </div>
+
+    <div class="cards-slides-container">
+      {
+        financialProjections.values.map((value) => (
+          <article>
+            <h4>{value.title}</h4>
+            <p>{value.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .fin-pro-container {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+
+      background-color: var(--color-surface-secondary);
+      padding-block: var(--padding-section-block);
+    }
+
+    .fin-pro-content {
+      grid-column: content-start / content-end;
+      display: grid;
+      grid-template-columns: subgrid;
+    }
+
+    .fin-pro-header {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: content-start / middle;
+    }
+
+    .arrows {
+      display: flex;
+      justify-self: end;
+      align-self: flex-end;
+      gap: 1.6rem;
+
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+      }
+
+      svg {
+        width: 1rem;
+      }
+    }
+
+    .cards-slides-container {
+      grid-column: content-start / content-end;
+
+      display: flex;
+    }
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header>
+  <a href="/"> Ask<span>Experts</span></a>
+  <nav>
+    <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
+    <a
+      href="/case-studies/"
+      aria-current={currentPath === "/case-studies" ? "page" : undefined}
+      >Case Studies</a
+    >
+    <a href="/team/" aria-current={currentPath === "/team" ? "page" : undefined}
+      >Team</a
+    >
+    <a
+      href="/about/"
+      aria-current={currentPath === "/about" ? "page" : undefined}>About</a
+    >
+  </nav>
+  <button>Login</button>
+</header>
+
+<style>
+  @layer components {
+    header {
+      /* Placeholder, så jeg kan style lettere */
+      /* margin-bottom: 400px; */
+
+      grid-column: full;
+      /* For at header ligger ovenover hero */
+      grid-row: 1;
+      z-index: 1;
+
+      display: grid;
+      /* Bruger samme grid-layout som body */
+      grid-template-columns: subgrid;
+
+      align-items: center;
+
+      height: 100px;
+      padding-inline: var(--content-column);
+
+      background-color: color-mix(
+        in srgb,
+        var(--color-ui-primary) 70%,
+        transparent
+      );
+      backdrop-filter: blur(21px);
+
+      a {
+        color: var(--color-on-ui-primary);
+      }
+
+      /* LOGO */
+      > a {
+        grid-column: content-start / middle;
+        grid-row: 1;
+
+        font-size: var(--font-size-heading-05);
+        font-weight: var(--font-weight-headings);
+      }
+
+      span {
+        color: var(--color-action);
+      }
+
+      /* NAVIGATION */
+      nav {
+        grid-column: content-start / content-end;
+        justify-self: center;
+        grid-row: 1;
+        display: flex;
+        gap: 30px;
+      }
+
+      nav a {
+        font-size: 1.125rem;
+      }
+
+      /* Aktiv side */
+      nav a[aria-current="page"] {
+        text-decoration: 4px underline var(--color-action);
+      }
+
+      /* LOGIN */
+      button {
+        grid-column: middle / content-end;
+        justify-self: end;
+        grid-row: 1;
+        background-color: var(--color-on-ui-primary);
+        color: var(--color-text);
+        font-size: 1.125rem;
+        border-radius: 999px;
+        width: 94px;
+      }
+    }
+  }
+</style>

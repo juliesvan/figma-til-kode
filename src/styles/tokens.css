@@ -8,7 +8,7 @@
   --color-neutrals-900: #030712;
   --color-neutrals-700: #5a606f;
   --color-blue-700: #101828;
-  --color-blue-700-transparent: rgba(16 24 40 / 0.9);
+  --color-blue-700-transparent: rgba(16, 24, 40, 0.9);
   --color-green-600: #4bb84b;
   --color-neutrals-100: #f9fafb;
   --color-neutrals-400: #99a1af;
@@ -31,10 +31,38 @@
   --color-text-weak: var(--color-neutrals-400);
   --color-surface-highlight: var(--color-yellow-600);
   --color-on-ui-primary-muted: var(--color-neutrals-400);
+
+  /* ==== Spacing ==== */
+  /* PADDING */
+  --padding-section-block: 6rem;
+  --padding-cards: 2rem;
+  --padding-btns: 16px;
+
+  --letter-spacing: 14.5%;
+
+  /* HEIGHT */
+  --height-btns: 16px;
+
+  /* ==== Typography ==== */
+  /* FONT-SIZE */
+  --font-size-title: 3.75rem;
+  --font-size-heading-01: 3.125rem;
+  --font-size-heading-02: 2.8125rem;
+  --font-size-heading-03: 2.5rem;
+  --font-size-heading-04: 2.1875rem;
+  --font-size-heading-05: 1.875rem;
+  --font-size-heading-cards: 1.5625rem;
+  --font-size-p: 1.125rem;
+  --font-size-btns: 1.125rem;
+
+  /* FONT-WEIGHT */
+  --font-weight-headings: 700;
+  --font-weight-btns: 600;
+
+  /* ==== Border Radii ==== */
+  --border-radius-cards: 20px;
+  --border-radius-btns: 42px;
+
+  /* === Layout === */
+  --content-column: min(600px, calc(50% - 1rem));
 }
-
-/* ==== Spacing ==== */
-
-/* ==== Typography ==== */
-
-/* ==== Border Radii ==== */

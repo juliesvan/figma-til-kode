@@ -1,11 +1,65 @@
 /* Globale styles her */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-family: var(--font-lato);
+  line-height: 1.5;
+}
+
+body {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(1rem, 1fr)
+    [content-start] var(--content-column)
+    [middle] var(--content-column)
+    [content-end] minmax(1rem, 1fr)
+    [full-end];
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5 {
   font-family: var(--font-cabin);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: var(--font-size-heading-01);
+}
+
+h2 {
+  font-size: var(--font-size-heading-02);
+}
+
+h3 {
+  font-size: var(--font-size-heading-03);
+}
+
+h4 {
+  font-size: var(--font-size-heading-04);
+}
+
+h5 {
+  font-size: var(--font-size-heading-05);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing);
 }
