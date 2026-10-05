@@ -3,7 +3,7 @@
 ---
 
 <footer>
-  <h5>Ask<span>Experts</span></h5>
+  <h2>Ask<span>Experts</span></h2>
   <p>©2026 Consultalk. All rights reserved</p>
   <p>Terms of Service | Privacy Policy</p>
 </footer>
@@ -24,10 +24,11 @@
 
       background-color: var(--color-ui-primary);
 
-      h5 {
+      h2 {
         grid-column: content-start / middle;
         grid-row: 1;
         color: var(--color-on-ui-primary);
+        font-size: var(--font-size-logo);
       }
 
       span {
@@ -36,10 +37,10 @@
 
       p {
         color: var(--color-text-weak);
-        font-size: 1rem;
+        font-size: var(--text-s);
       }
 
-      h5 + p {
+      h2 + p {
         grid-column: content-start / content-end;
         justify-self: center;
         grid-row: 1;

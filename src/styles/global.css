@@ -19,6 +19,8 @@ body {
     [middle] var(--content-column)
     [content-end] minmax(1rem, 1fr)
     [full-end];
+
+  align-content: start;
 }
 
 h1,
@@ -31,26 +33,6 @@ h5 {
   line-height: 1.15;
 }
 
-h1 {
-  font-size: var(--font-size-heading-01);
-}
-
-h2 {
-  font-size: var(--font-size-heading-02);
-}
-
-h3 {
-  font-size: var(--font-size-heading-03);
-}
-
-h4 {
-  font-size: var(--font-size-heading-04);
-}
-
-h5 {
-  font-size: var(--font-size-heading-05);
-}
-
 a {
   text-decoration: none;
 }
@@ -59,7 +41,16 @@ button {
   border: none;
 }
 
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-imgs);
+}
+
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing);
+  color: var(--color-text);
+  font-size: var(--text-s);
 }

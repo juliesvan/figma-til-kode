@@ -20,7 +20,10 @@ const serviceData = await fetch("https://ftk-api.pages.dev/services").then(
       display: flex;
       gap: 1rem;
 
-      align-self: flex-start;
+      align-self: end;
+
+      z-index: 2;
+      transform: translateY(50%);
     }
 
     .services > :global(article) {

@@ -5,33 +5,71 @@ const financialProjections = await getFinancialProjections();
 // Ikoner
 import ArrowLeft from "@icons/arrow-left.svg";
 import ArrowRight from "@icons/arrow--right.svg";
+
+import Cal from "@icons/cal.svg";
+import Card from "@icons/card.svg";
+import Law from "@icons/law.svg";
+import Money from "@icons/money.svg";
+import Gear from "@icons/gear.svg";
+import Bars from "@icons/bars.svg";
+import Clock from "@icons/clock.svg";
+
+const icons = {
+  cal: Cal,
+  card: Card,
+  law: Law,
+  money: Money,
+  gear: Gear,
+  bars: Bars,
+  clock: Clock,
+};
 ---
 
 <section class="fin-pro-container">
   <article class="fin-pro-content">
     <header class="fin-pro-header">
-      <p>{financialProjections.eyebrow}</p>
-      <h3>{financialProjections.title}</h3>
+      <p class="eyebrow">{financialProjections.eyebrow}</p>
+      <h2>{financialProjections.title}</h2>
       <p>{financialProjections.subtitle}</p>
     </header>
 
     <div class="arrows">
-      <button aria-label="Previous">
+      <button
+        class="prev"
+        value="-0.9"
+        command="--scroll"
+        commandfor="scroller"
+        aria-label="Previous"
+      >
         <ArrowLeft />
       </button>
-      <button aria-label="Next">
+      <button
+        class="next"
+        value="0.9"
+        command="--scroll"
+        commandfor="scroller"
+        aria-label="Next"
+      >
         <ArrowRight />
       </button>
     </div>
 
-    <div class="cards-slides-container">
+    <div class="cards-scroll-container" id="scroller">
       {
-        financialProjections.values.map((value) => (
-          <article>
-            <h4>{value.title}</h4>
-            <p>{value.description}</p>
-          </article>
-        ))
+        financialProjections.values.map((value) => {
+          const Icon = icons[value.icon];
+
+          return (
+            <article>
+              <div class="icon">
+                <Icon />
+              </div>
+
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
+            </article>
+          );
+        })
       }
     </div>
   </article>
@@ -49,7 +87,7 @@ import ArrowRight from "@icons/arrow--right.svg";
     }
 
     .fin-pro-content {
-      grid-column: content-start / content-end;
+      grid-column: full;
       display: grid;
       grid-template-columns: subgrid;
     }
@@ -58,6 +96,16 @@ import ArrowRight from "@icons/arrow--right.svg";
       display: grid;
       grid-template-columns: subgrid;
       grid-column: content-start / middle;
+
+      h2 {
+        color: var(--color-text);
+        font-size: var(--heading-m);
+      }
+
+      h2 + p {
+        color: var(--color-text-muted);
+        font-size: var(--text-s);
+      }
     }
 
     .arrows {
@@ -79,15 +127,94 @@ import ArrowRight from "@icons/arrow--right.svg";
         border-radius: 50%;
       }
 
+      button:disabled {
+        opacity: 0.6;
+      }
+
       svg {
         width: 1rem;
       }
     }
 
-    .cards-slides-container {
-      grid-column: content-start / content-end;
-
+    .cards-scroll-container {
+      grid-column: content-start / full;
       display: flex;
+      gap: 2rem;
+
+      padding-right: 2rem;
+      scroll-padding-inline: 2rem;
+      scroll-snap-type: inline mandatory;
+      overflow-inline: auto;
+
+      padding-top: 3rem;
+
+      article {
+        flex: 1 0 400px;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+
+        background-color: var(--color-surface-tertiary);
+        padding: var(--padding-cards);
+        border-radius: var(--border-radius-cards);
+
+        h3 {
+          color: var(--color-text);
+          font-size: var(--heading-xs);
+        }
+
+        h3 + p {
+          color: var(--color-text-muted);
+          font-size: var(--text-s);
+        }
+      }
     }
   }
+
+  /* Flow Space */
+  .fin-pro-header > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  h2,
+  h2 + p {
+    --flow-space: var(--flow-space-s);
+  }
+
+  article h3 {
+    margin-block-start: var(--flow-space);
+  }
+
+  article h3 + p {
+    margin-block-start: var(--flow-space-s);
+  }
 </style>
+
+<script>
+  const scroller = document.querySelector("#scroller");
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+
+  function scrollByFactor(value) {
+    const factor = Number(value);
+    if (!Number.isFinite(factor)) return;
+    scroller.scrollBy({ left: scroller.clientWidth * factor });
+  }
+
+  scroller.addEventListener("command", (event) => {
+    if (event.command === "--scroll") {
+      scrollByFactor(event.source.value);
+    }
+  });
+
+  function updateButtons() {
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+
+    prev.disabled = scroller.scrollLeft <= 1;
+    next.disabled = scroller.scrollLeft >= maxScroll - 1;
+  }
+
+  scroller.addEventListener("scroll", updateButtons);
+  new ResizeObserver(updateButtons).observe(scroller);
+
+  updateButtons();
+</script>

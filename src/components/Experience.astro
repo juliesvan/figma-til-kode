@@ -5,37 +5,23 @@ const experience = await getExperience();
 
 <section class="exp-container">
   <div class="exp-content">
-    <p>{experience.eyebrow}</p>
-    <h3>{experience.title}</h3>
+    <p class="eyebrow">{experience.eyebrow}</p>
+    <h2>{experience.title}</h2>
     <p>{experience.subtitle}</p>
   </div>
   <div class="exp-diagrams">
-    <figure data-value="85">
-      <svg viewBox="0 0 100 100">
-        <circle class="track"></circle>
-        <circle class="progress" pathLength="100"></circle>
-        <circle class="marker"></circle>
-      </svg>
-      <h4>{experience.stats[0].label}</h4>
-    </figure>
-
-    <figure data-value="95">
-      <svg viewBox="0 0 100 100">
-        <circle class="track"></circle>
-        <circle class="progress" pathLength="100"></circle>
-        <circle class="marker"></circle>
-      </svg>
-      <h4>{experience.stats[1].label}</h4>
-    </figure>
-
-    <figure data-value="90">
-      <svg viewBox="0 0 100 100">
-        <circle class="track"></circle>
-        <circle class="progress" pathLength="100"></circle>
-        <circle class="marker"></circle>
-      </svg>
-      <h4>{experience.stats[2].label}</h4>
-    </figure>
+    {
+      experience.stats.map((stat) => (
+        <figure data-value={stat.value}>
+          <svg viewBox="0 0 100 100">
+            <circle class="track" />
+            <circle class="progress" pathLength="100" />
+            <circle class="marker" />
+          </svg>
+          <h3>{stat.label}</h3>
+        </figure>
+      ))
+    }
   </div>
 </section>
 
@@ -55,23 +41,40 @@ const experience = await getExperience();
       background-color: var(--color-surface-highlight);
       padding-block: var(--padding-section-block);
       border: 1px solid #000;
+
+      color: var(--color-text);
     }
 
     .exp-content {
       grid-column: content-start / middle;
+
+      max-width: var(--max-width-text-content);
+
+      h2 {
+        font-size: var(--heading-m);
+      }
+
+      h2 + p {
+        font-size: var(--text-s);
+      }
     }
 
     .exp-diagrams {
       grid-column: middle / content-end;
 
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+
+      h3 {
+        font-size: var(--heading-xs);
+      }
     }
 
     figure {
-      flex: 0 1 200px;
+      flex: 0 0 10rem;
+      width: 10rem;
       min-inline-size: 0;
       text-align: center;
 
@@ -88,12 +91,14 @@ const experience = await getExperience();
     figure::after {
       content: var(--value-string) "%";
       grid-area: stack;
-      font-size: 30cqw;
+      font-size: var(--font-size-heading-04);
       font-weight: 700;
     }
 
     svg {
       grid-area: stack;
+      width: 100%;
+      aspect-ratio: 1;
       rotate: -90deg;
     }
 
@@ -122,9 +127,18 @@ const experience = await getExperience();
       r: 4;
       fill: #000;
       stroke: #fff;
-      stroke-width: 2px;
+      stroke-width: 0.15rem;
       offset-path: circle(46px at 50px 50px);
       offset-distance: var(--value-percent);
     }
+  }
+
+  /* Flow Space */
+  .exp-content > * + * {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  .exp-diagrams h3 {
+    margin-block-start: var(--flow-space);
   }
 </style>

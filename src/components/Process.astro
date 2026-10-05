@@ -1,21 +1,59 @@
 ---
+import { Image } from "astro:assets";
+import ImageOne from "@assets/images/process-01.png";
+import ImageTwo from "@assets/images/process-02.png";
+import ImageThree from "@assets/images/process-03.png";
 
+// Ikoner
+import Phone from "@icons/phone.svg";
+import Clock from "@icons/clock.svg";
+import Pin from "@icons/pin.svg";
 ---
 
 <section class="process-container">
   <article class="process-content">
-    <p>PROCESS</p>
-    <h3>Contact Us. It's Easy.</h3>
+    <p class="eyebrow">PROCESS</p>
+    <h2>Contact Us. It's Easy.</h2>
     <p>
       Leverage agile frameworks to provide a robust synopsis for high level
       overviews. Iterative approaches to corporate strategy foster
       collaborative.
     </p>
+
+    <div class="icon-label">
+      <div class="icon phone">
+        <Phone />
+      </div>
+      <div>
+        <p>Call Today</p>
+        <p>+1 800 100 900</p>
+      </div>
+    </div>
+
+    <div class="icon-label">
+      <div class="icon clock">
+        <Clock />
+      </div>
+      <div>
+        <p>Monday To Friday</p>
+        <p>9AM - 5PM</p>
+      </div>
+    </div>
+
+    <div class="icon-label">
+      <div class="icon pin">
+        <Pin />
+      </div>
+      <div>
+        <p>USA Office</p>
+        <p>195 Devonshire St Boston, MA 02110</p>
+      </div>
+    </div>
   </article>
   <div class="process-grid-imgs">
-    <img src="" alt="" />
-    <img src="" alt="" />
-    <img src="" alt="" />
+    <Image src={ImageOne} alt="Team Member" />
+    <Image src={ImageTwo} alt="Team" />
+    <Image src={ImageThree} alt="Team" />
   </div>
 </section>
 
@@ -31,10 +69,101 @@
 
     .process-content {
       grid-column: content-start / middle;
+      color: var(--color-text);
+
+      h2 {
+        font-size: var(--heading-m);
+      }
+
+      h2 + p {
+        color: var(--color-text-muted);
+        font-size: var(--text-s);
+      }
     }
 
-    .process-grid.imgs {
-      grid-column: middle / content-end;
+    .icon-label {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      p:first-child {
+        color: var(--color-text-muted);
+        font-size: var(--text-s);
+      }
+
+      p:nth-child(2) {
+        font-size: var(--text-l);
+        font-weight: 600;
+      }
+
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .phone {
+        background-color: #ffecbb;
+        color: #deaa27;
+      }
+
+      .clock {
+        background-color: var(--color-ui-secondary);
+        color: #4eaf4e;
+      }
+
+      .pin {
+        background-color: #eaeaea;
+        color: var(--color-text);
+      }
     }
+
+    .process-grid-imgs {
+      grid-column: middle / content-end;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1rem;
+
+      :nth-child(1) {
+        grid-column: 1;
+        grid-row: 1 / -1;
+      }
+
+      :nth-child(2) {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      :nth-child(3) {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      position: relative;
+      isolation: isolate;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -2rem;
+        left: -2.3rem;
+        width: 18rem;
+        height: 8rem;
+        border-radius: var(--border-radius-cards);
+        background-color: var(--color-ui-secondary);
+        z-index: -1;
+      }
+    }
+  }
+
+  /* Flow Space */
+  .process-content > * + * {
+    margin-block-start: var(--flow-space-s);
   }
 </style>

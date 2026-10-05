@@ -18,17 +18,23 @@ import ArrowRight from "@icons/arrow--right.svg";
 
       background: var(--color-blue-700-transparent);
       color: var(--color-on-surface-elevated);
-      padding: var(--padding-cards); /* Dette burde være en token */
-      border-radius: var(--border-radius-cards); /* Dette burde være en token */
+      padding: var(--padding-cards);
+      border-radius: var(--border-radius-cards);
+      backdrop-filter: blur(5px);
 
       h2 {
-        font-size: 1.5625rem;
+        font-size: var(--heading-xs);
+      }
+
+      p {
+        font-size: var(--text-l);
       }
     }
     a {
       display: inline flex;
       gap: 1ch;
       color: var(--color-action);
+      font-size: var(--text-l);
       font-weight: bold;
       margin-top: auto;
       padding-top: 2rem;
@@ -37,5 +43,9 @@ import ArrowRight from "@icons/arrow--right.svg";
         inline-size: 16px;
       }
     }
+  }
+  /* Flow Space */
+  article h2 + p {
+    margin-block-start: var(--flow-space-s);
   }
 </style>

@@ -1,0 +1,123 @@
+---
+import DynamicImage from "@helpers/DynamicImage.astro";
+
+import { getEmployees } from "../lib/api.js";
+const employees = await getEmployees();
+---
+
+<section class="team-section">
+  <article class="team-content">
+    <p class="eyebrow">Our Team</p>
+    <h2>We champion the bold</h2>
+    <p>
+      Our success stems from the synergy between dedicated teams and our valued
+      clients. We prioritize a company culture that fosters exceptional
+      productivity, ensures customer satisfaction.
+    </p>
+    <a href="/team/">Meet the Team</a>
+  </article>
+  <article class="team-grid-imgs">
+    <div class="ceo">
+      <DynamicImage src="/src/data/images/sarah.webp" alt="CEO" />
+
+      <div>
+        <h3>{employees[0].name}</h3>
+        <p>{employees[0].title}</p>
+        <p>{employees[0].description}</p>
+      </div>
+    </div>
+    <div class="manager">
+      <DynamicImage src="/src/data/images/john.webp" alt="Manager" />
+
+      <div>
+        <h3>{employees[1].name}</h3>
+        <p>{employees[1].title}</p>
+        <p>{employees[1].description}</p>
+      </div>
+    </div>
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .team-section {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+
+      color: var(--color-text);
+      padding-block: var(--padding-section-block);
+    }
+
+    .team-content {
+      grid-column: content-start / middle;
+
+      h2 {
+        font-size: var(--heading-m);
+      }
+
+      h2 + p {
+        color: var(--color-text-muted);
+        font-size: var(--text-s);
+      }
+
+      a {
+        display: inline-block;
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+        padding: var(--padding-btns);
+        font-size: var(--font-size-btns);
+        font-weight: var(--font-weight-btns);
+        border-radius: var(--border-radius-btns);
+
+        width: 10rem;
+        text-align: center;
+      }
+    }
+
+    .team-grid-imgs {
+      grid-column: middle / content-end;
+
+      display: grid;
+      gap: 2rem;
+
+      .ceo,
+      .manager {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      h3 {
+        font-size: var(--heading-s);
+      }
+
+      p {
+        font-size: var(--text-l);
+      }
+
+      p + p {
+        color: var(--color-text-muted);
+      }
+    }
+  }
+  /* Flow Space */
+  .team-content > * + * {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  .team-content p + a {
+    margin-block-start: var(--flow-space);
+  }
+
+  .ceo h3 + p,
+  .manager h3 + p {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  .ceo p + p,
+  .manager p + p {
+    margin-block-start: var(--flow-space-s);
+  }
+</style>

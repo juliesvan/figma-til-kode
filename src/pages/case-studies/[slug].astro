@@ -3,6 +3,10 @@
 import { getCaseStudies } from "@lib/api";
 import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import CaseStudiesHero from "@components/CaseStudiesHero.astro";
+import Newsletter from "@components/Newsletter.astro";
+import Footer from "@components/Footer.astro";
 
 export async function getStaticPaths() {
   const caseStudies = await getCaseStudies();
@@ -17,7 +21,9 @@ const { caseStudy } = Astro.props;
 const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
 ---
 
-<Layout>
+<Layout title="Case Studies - Taxes and Efficiency">
+  <Header />
+  <CaseStudiesHero />
   <article class="case-story-article">
     <header>
       <Image
@@ -48,11 +54,7 @@ const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
       {
         caseStudy.sections.map((section, index) => (
           <>
-            {index === 0 ? (
-              <h2>{section.title}</h2>
-            ) : (
-              <h3>{section.title}</h3>
-            )}
+            {index === 0 ? <h2>{section.title}</h2> : <h3>{section.title}</h3>}
 
             {Array.isArray(section.content) ? (
               <>
@@ -88,6 +90,170 @@ const { caseName, category, date, image, buttonLabel } = caseStudy.caseDetails;
       }
     </section>
   </article>
+  <Newsletter />
+  <Footer />
 </Layout>
 
-<style></style>
+<style>
+  .case-story-article {
+    display: grid;
+    grid-column: content-start / content-end;
+    grid-template-columns: subgrid;
+    /* row-gap for at rykke case-story-content ned under case-details, så den ikke ligger bagved. */
+    row-gap: 10rem;
+
+    padding-block: var(--padding-section-block);
+
+    header {
+      container-type: inline-size;
+      position: relative;
+      grid-column: content-start / content-end;
+
+      .case-details {
+        position: absolute;
+        bottom: -6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+        border-radius: var(--border-radius-cards);
+        padding: 3rem;
+
+        dl {
+          display: flex;
+          column-gap: 5rem;
+
+          dt {
+            font-size: var(--heading-xxs);
+            font-weight: 700;
+          }
+
+          dd {
+            font-size: var(--text-s);
+          }
+        }
+
+        .button {
+          background-color: var(--color-action);
+          color: var(--color-text);
+          font-size: var(--font-size-btns);
+          font-weight: var(--font-weight-btns);
+          border-radius: var(--border-radius-btns);
+          padding: var(--padding-btns);
+          width: 10rem;
+          text-align: center;
+        }
+
+        .button:hover {
+          background-color: hsl(from var(--color-action) h s calc(l + 8));
+        }
+      }
+    }
+
+    .case-story-content {
+      display: grid;
+      grid-column: content-start / content-end;
+      color: var(--color-text-muted);
+
+      h2,
+      h3,
+      p,
+      ul {
+        max-width: 50rem;
+        margin-inline: auto;
+      }
+
+      /* For at få overskrifterne til at flugte med teksten. */
+      h2,
+      h3 {
+        width: 100%;
+        text-align: left;
+        color: var(--color-text);
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+
+      h3 {
+        font-size: var(--heading-s);
+      }
+
+      p,
+      ul {
+        font-size: var(--text-s);
+      }
+
+      figure img {
+        border-radius: 0;
+      }
+
+      figure {
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          inset: auto 0 0;
+          height: 30%;
+          background: linear-gradient(transparent, #000);
+        }
+
+        figcaption {
+          position: absolute;
+          bottom: 0.5rem;
+          /* Teksten burde flugte med resten af teksten på siden. */
+          width: 100%;
+          text-align: center;
+          color: var(--color-on-ui-primary);
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  @container (width < 800px) {
+    .case-story-article header .case-details {
+      bottom: -18rem;
+    }
+
+    .case-details {
+      grid-template-columns: 1fr;
+
+      dl {
+        flex-direction: column;
+        row-gap: 1rem;
+        margin-inline: auto;
+      }
+
+      .button {
+        width: 100%;
+        grid-column: 1;
+        margin-inline: auto;
+      }
+    }
+  }
+
+  /* Flow Space */
+  .case-story-content > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  h2 + p {
+    --flow-space: var(--flow-space-s);
+  }
+
+  .case-story-content li + li {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  ul + h3 {
+    --flow-space: var(--flow-space-section);
+  }
+</style>

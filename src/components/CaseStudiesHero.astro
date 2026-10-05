@@ -1,0 +1,74 @@
+---
+
+---
+
+<section class="cs-hero">
+  <article class="cs-hero-content">
+    <p class="eyebrow">Case Studies</p>
+    <h1>Taxes & Efficiency</h1>
+    <p>
+      Our achievements reflect the close collaboration between our expert teams
+      and our esteemed clientele. We cultivate a workplace that champions peak
+      performance and guarantees client satisfaction.
+    </p>
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .cs-hero {
+      display: grid;
+      grid-column: full;
+      grid-template-columns: subgrid;
+
+      background-color: var(--color-surface-secondary);
+      padding-block: var(--padding-section-block);
+    }
+
+    .cs-hero-content {
+      grid-column: content-start / content-end;
+
+      justify-self: center;
+      text-align: center;
+      max-width: var(--max-width-hero-text);
+
+      h1 {
+        display: inline-block;
+        position: relative;
+        isolation: isolate;
+        font-size: var(--heading-xl);
+        color: var(--color-text);
+      }
+
+      h1::after {
+        position: absolute;
+        content: "";
+        display: block;
+
+        right: 0;
+        /* calc bruges til at udregne bredden på stregen. 50vw, så den fylder halvdelen af viewporten, og + 50% af det element stregen er positioneret i forhold til (i dette tilfælde er det h1's bredde). Så regnestykket bliver: halvdelen af viewportens bredde + 50% af elementets størrelse. */
+        width: calc(50vw + 50%);
+        height: 0.4rem;
+        bottom: 0rem;
+
+        background-color: var(--color-action);
+
+        z-index: -1;
+      }
+
+      h1 + p {
+        font-size: var(--hero-text);
+        color: var(--color-text-muted);
+      }
+    }
+  }
+
+  /* Flow Space */
+  .cs-hero-content > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  h1 {
+    --flow-space: var(--flow-space-s);
+  }
+</style>

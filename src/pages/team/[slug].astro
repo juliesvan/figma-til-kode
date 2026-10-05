@@ -2,7 +2,15 @@
 //@ts-nocheck
 import { getTeamMembers } from "@lib/api";
 import { Image } from "astro:assets";
+
 import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Newsletter from "@components/Newsletter.astro";
+import Footer from "@components/Footer.astro";
+
+import ArrowLeft from "@icons/arrow-left.svg";
+import Instagram from "@icons/instagram.svg";
+import Facebook from "@icons/facebook.svg";
 
 export async function getStaticPaths() {
   const team = await getTeamMembers();
@@ -16,15 +24,140 @@ export async function getStaticPaths() {
 const { employee } = Astro.props;
 ---
 
-<Layout>
-  <Image
-    src={employee.image.src}
-    alt={employee.image.alt}
-    width={employee.image.width}
-    height={employee.image.height}
-  />
-  <h2>{employee.name}</h2>
-  <p>{employee.description_long}</p>
-  <h3>Past Experience</h3>
-  <p>{employee.past_experience}</p>
+<Layout title={employee.name}>
+  <Header />
+  <section class="team-member-container">
+    <a href="/team/"> <ArrowLeft />Back to team</a>
+
+    <div class="team-member-img">
+      <Image
+        src={employee.image.src}
+        alt={employee.image.alt}
+        width={employee.image.width}
+        height={employee.image.height}
+      />
+      <div class="socials">
+        <Instagram />
+        <Facebook />
+      </div>
+    </div>
+
+    <article>
+      <h2>{employee.name}</h2>
+      <p>{employee.title}</p>
+      <p>{employee.description_long}</p>
+      <hr />
+      <h3>Past Experience</h3>
+      <p>{employee.past_experience}</p>
+    </article>
+  </section>
+  <Newsletter />
+  <Footer />
 </Layout>
+
+<style>
+  .team-member-container {
+    grid-column: content-start / content-end;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+
+    padding-block: var(--padding-section-block);
+
+    a {
+      grid-column: 1;
+      grid-row: 1;
+
+      display: flex;
+      gap: 1rem;
+
+      background-color: var(--color-ui-primary);
+      color: var(--color-on-ui-primary);
+      padding: var(--padding-btns);
+      border-radius: var(--border-radius-btns);
+      font-size: var(--font-size-btns);
+      font-weight: var(--font-weight-btns);
+      width: 12rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .team-member-img {
+      grid-column: 1;
+      grid-row: 2;
+
+      position: relative;
+      isolation: isolate;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -2.4rem;
+        left: -3rem;
+        width: 14rem;
+        height: 11rem;
+        border-radius: var(--border-radius-cards);
+        background-color: var(--color-ui-secondary);
+        z-index: -1;
+      }
+
+      .socials {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        color: #181818;
+      }
+    }
+
+    article {
+      grid-column: 2;
+      grid-row: 2;
+
+      color: var(--color-text);
+
+      h2 {
+        font-size: var(--heading-m);
+      }
+
+      h2 + p {
+        font-size: var(--heading-xxs);
+      }
+
+      h3 {
+        font-size: var(--heading-sm);
+      }
+
+      p {
+        color: var(--color-text-muted);
+      }
+
+      hr {
+        border: 1px solid #c1c1c1;
+      }
+    }
+  }
+  /* Flow Space */
+  .socials {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  /* article h2 + p {
+    margin-block-start: var(--flow-space-s);
+  } */
+
+  article p + p {
+    margin-block-start: var(--flow-space);
+  }
+
+  article hr {
+    margin-block-start: var(--flow-space-l);
+  }
+
+  article h3 {
+    margin-block-start: var(--flow-space-l);
+  }
+
+  article h3 + p {
+    margin-block-start: var(--flow-space-s);
+  }
+</style>

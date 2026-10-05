@@ -1,0 +1,115 @@
+---
+import { getFAQ } from "@lib/api.js";
+const faq = await getFAQ();
+console.log(faq);
+---
+
+<section class="faq-container">
+  <article class="faq-content">
+    <header>
+      <p class="eyebrow">FAQ</p>
+      <h2>Customer Questions</h2>
+    </header>
+    {
+      faq.map((data) => (
+        <details>
+          <summary>{data.question}</summary>
+          <div>
+            <p>{data.answer}</p>
+          </div>
+        </details>
+      ))
+    }
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .faq-container {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+
+      padding-block: var(--padding-section-block);
+    }
+
+    .faq-content {
+      grid-column: content-start / content-end;
+
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text);
+      border-radius: var(--border-radius-cards);
+      padding: 5rem;
+
+      header {
+        text-align: center;
+
+        h2 {
+          font-size: var(--heading-m);
+        }
+      }
+
+      details {
+        margin: 0 auto;
+        max-width: 50rem;
+
+        @supports (interpolate-size: allow-keywords) {
+          @media (prefers-reduced-motion: no-preference) {
+            interpolate-size: allow-keywords;
+
+            &::details-content {
+              block-size: 0;
+              overflow: clip;
+              transition:
+                block-size 0.3s ease,
+                content-visibility 0.3s;
+              transition-behavior: allow-discrete;
+            }
+
+            &:open::details-content {
+              block-size: auto;
+            }
+          }
+        }
+
+        summary {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          list-style: none;
+          border-bottom: 1px solid #dadada;
+          font-size: var(--heading-xxs);
+          font-weight: 500;
+          cursor: pointer;
+
+          &::after {
+            content: "+";
+            font-size: 2rem;
+          }
+
+          details[open] &::after {
+            content: "–";
+          }
+        }
+
+        p {
+          font-size: var(--text-s);
+          color: var(--color-text-muted);
+          max-width: 40rem;
+        }
+      }
+    }
+  }
+  /* Flow Space */
+  .faq-content h2 {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  details {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  details p {
+    margin-block-start: var(--flow-space-s);
+  }
+</style>

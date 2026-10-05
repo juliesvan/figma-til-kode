@@ -1,0 +1,74 @@
+---
+
+---
+
+<section class="about-hero">
+  <article class="about-hero-content">
+    <p class="eyebrow">About</p>
+    <h1>Igniting Innovation</h1>
+    <p>
+      Our strength lies in the collaboration between our talented teams and
+      esteemed clients. We cultivate a workplace that champions innovation,
+      promotes peak performance, and guarantees client satisfaction.
+    </p>
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .about-hero {
+      display: grid;
+      grid-column: full;
+      grid-template-columns: subgrid;
+
+      background-color: var(--color-surface-secondary);
+      padding-block: var(--padding-section-block);
+    }
+
+    .about-hero-content {
+      grid-column: content-start / content-end;
+
+      justify-self: center;
+      text-align: center;
+      max-width: var(--max-width-hero-text);
+
+      h1 {
+        display: inline-block;
+        position: relative;
+        isolation: isolate;
+        color: var(--color-text);
+        font-size: var(--heading-xl);
+      }
+
+      h1::after {
+        position: absolute;
+        content: "";
+        display: block;
+
+        left: 0;
+        /* calc bruges til at udregne bredden på stregen. 50vw, så den fylder halvdelen af viewporten, og + 50% af det element stregen er positioneret i forhold til (i dette tilfælde er det h1's bredde). Så regnestykket bliver: halvdelen af viewportens bredde + 50% af elementets størrelse. */
+        width: calc(50vw + 50%);
+        height: 0.4rem;
+        bottom: 0rem;
+
+        background-color: var(--color-action);
+
+        z-index: -1;
+      }
+
+      h1 + p {
+        color: var(--color-text-muted);
+        font-size: var(--hero-text);
+      }
+    }
+  }
+
+  /* Flow Space */
+  .about-hero-content > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  h1 {
+    --flow-space: var(--flow-space-s);
+  }
+</style>

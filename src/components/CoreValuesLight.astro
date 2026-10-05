@@ -63,7 +63,7 @@ const icons = {
       display: grid;
       grid-template-columns: subgrid;
 
-      background-color: var(--color-ui-primary);
+      background-color: var(--color-surface-secondary);
       padding-block: var(--padding-section-block);
     }
 
@@ -77,22 +77,23 @@ const icons = {
 
         display: grid;
         grid-template-columns: subgrid;
-      }
 
-      h2 {
-        font-size: var(--heading-m);
-      }
+        h2 {
+          font-size: var(--heading-m);
+        }
 
-      h2 + p {
-        font-size: var(--text-s);
+        h2 + p {
+          color: var(--color-text-muted);
+          font-size: var(--text-s);
+        }
       }
 
       header a {
         justify-self: end;
         align-self: flex-end;
 
-        background-color: var(--color-on-ui-primary);
-        color: var(--color-text);
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
         padding: var(--padding-btns);
         border-radius: var(--border-radius-btns);
         font-size: var(--font-size-btns);
@@ -104,11 +105,7 @@ const icons = {
 
     .core-values-text {
       grid-column: content-start / middle;
-      color: var(--color-on-ui-primary);
-
-      .eyebrow {
-        color: var(--color-on-ui-primary);
-      }
+      color: var(--color-text);
     }
 
     .core-values-cards {
@@ -121,7 +118,8 @@ const icons = {
     }
 
     .value-card {
-      background-color: var(--color-surface-secondary);
+      background-color: var(--color-surface-primary);
+      border: 1px solid #eaeaea;
       padding: var(--padding-cards);
       border-radius: var(--border-radius-cards);
       height: fit-content;
@@ -142,7 +140,8 @@ const icons = {
         font-size: var(--heading-xxs);
       }
 
-      p {
+      h3 + p {
+        color: var(--color-text-muted);
         font-size: var(--text-s);
       }
 

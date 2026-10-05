@@ -1,0 +1,165 @@
+---
+import DynamicImage from "@helpers/DynamicImage.astro";
+
+import { getEmployees } from "../lib/api.js";
+const employees = await getEmployees();
+
+// Ikoner
+import Instagram from "@icons/instagram.svg";
+import Facebook from "@icons/facebook.svg";
+---
+
+<section class="team-container">
+  <article class="team-content">
+    <header>
+      <h2>Meet Our Great Team</h2>
+      <p>
+        Welcome to our amazing team! We are a group of passionate individuals
+        dedicated to excellence and innovation. Each member brings unique skills
+        and experiences, working together to achieve our goals. Join us as we
+        embark on exciting projects and create lasting impacts.
+      </p>
+    </header>
+    <a href="#">Join our team</a>
+  </article>
+
+  <div class="team-members-grid">
+    {
+      employees.map((employee) => (
+        <a href={`/team/${employee.slug}`} class="team-member-card">
+          <div class="img-title">
+            <img src={employee.image.src} alt={employee.name} />
+            <p class="employee-title">{employee.title}</p>
+          </div>
+          <h3>{employee.name}</h3>
+          <p>{employee.description}</p>
+          <ul>
+            <li>
+              {employee.social_links[0].icon === "instagram" ? (
+                <Instagram />
+              ) : (
+                <Facebook />
+              )}
+            </li>
+            <li>
+              {employee.social_links[0].icon === "facebook" ? (
+                <Instagram />
+              ) : (
+                <Facebook />
+              )}
+            </li>
+          </ul>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .team-container {
+      display: grid;
+      grid-column: full;
+      grid-template-columns: subgrid;
+
+      padding-block: var(--padding-section-block);
+    }
+
+    .team-content {
+      grid-column: content-start / content-end;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      header {
+        grid-column: 1;
+
+        h2 {
+          font-size: var(--heading-m);
+        }
+
+        p {
+          font-size: var(--text-s);
+          color: var(--color-text-muted);
+        }
+      }
+
+      a {
+        grid-column: 2;
+        justify-self: end;
+        align-self: flex-end;
+
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+        padding: var(--padding-btns);
+        border-radius: var(--border-radius-btns);
+        font-size: var(--font-size-btns);
+        font-weight: var(--font-weight-btns);
+        width: 10rem;
+        text-align: center;
+      }
+    }
+
+    .team-members-grid {
+      grid-column: content-start / content-end;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      text-align: center;
+    }
+
+    .team-member-card {
+      h3 {
+        font-size: var(--heading-s);
+      }
+
+      h3 + p {
+        font-size: var(--text-s);
+        color: var(--color-text-muted);
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        li {
+          cursor: pointer;
+          color: #181818;
+        }
+      }
+
+      .img-title {
+        position: relative;
+      }
+
+      .employee-title {
+        position: absolute;
+
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+        font-size: var(--text-s);
+        font-weight: var(--font-weight-btns);
+
+        padding-inline: 1rem;
+        padding-block: 0.2rem;
+        border-radius: 29px;
+        width: fit-content;
+        bottom: 0.6rem;
+        right: 0.6rem;
+      }
+    }
+  }
+  /* Flow Space */
+  .team-content header > * + * {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  .team-members-grid {
+    margin-block-start: var(--flow-space-section);
+  }
+
+  .team-member-card > * + * {
+    margin-block-start: var(--flow-space);
+  }
+</style>

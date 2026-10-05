@@ -1,14 +1,18 @@
 ---
+import { Image } from "astro:assets";
+import expectImage from "@assets/images/expect.png";
+
+// Ikoner
 import Checkmark from "@icons/checkmark.svg";
 ---
 
 <section class="expect-container">
   <div class="expect-img">
-    <img src="" alt="" />
+    <Image src={expectImage} alt="Team" />
   </div>
   <div class="expect-content">
-    <p>WE'LL WORK WITH YOU</p>
-    <h3>What To Expect</h3>
+    <p class="eyebrow">We'll work with you</p>
+    <h2>What To Expect</h2>
     <p>
       Our collaboration is built on transparency, efficiency, and measurable
       results. Together, we create strategies tailored to your unique needs and
@@ -32,41 +36,75 @@ import Checkmark from "@icons/checkmark.svg";
 <style>
   @layer components {
     .expect-container {
-      grid-column: content-start / content-end;
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+      gap: 4rem;
 
       padding-block: var(--padding-section-block);
+      margin-top: 8rem;
     }
 
     .expect-img {
       grid-column: content-start / middle;
+
+      position: relative;
+      isolation: isolate;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -2.6rem;
+        left: -2.3rem;
+        width: 11rem;
+        height: 10rem;
+        border-radius: var(--border-radius-cards);
+        background-color: var(--color-ui-secondary);
+        z-index: -1;
+      }
     }
 
     .expect-content {
       grid-column: middle / content-end;
 
-      p:first-child {
+      h2 {
         color: var(--color-text);
-        letter-spacing: var(--letter-spacing);
+        font-size: var(--heading-m);
       }
 
-      h3 {
-        color: var(--color-text);
-      }
-
-      h3 + p {
+      h2 + p {
         color: var(--color-text-muted);
+        font-size: var(--text-s);
       }
 
       li {
         display: flex;
+        align-items: flex-start;
         gap: 1rem;
 
         color: var(--color-text-muted);
+        font-size: var(--text-s);
       }
 
       .checkmark {
         color: var(--color-ui-secondary-alternative);
+        margin-top: 0.3rem;
+        width: 2rem;
       }
     }
+  }
+
+  /* Flow Space */
+  .expect-content > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  h2,
+  h2 + p {
+    --flow-space: var(--flow-space-s);
+  }
+
+  .expect-content li + li {
+    margin-block-start: var(--flow-space-s);
   }
 </style>

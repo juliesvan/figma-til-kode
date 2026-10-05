@@ -33,6 +33,11 @@
   --color-on-ui-primary-muted: var(--color-neutrals-400);
 
   /* ==== Spacing ==== */
+  --flow-space: 1rlh;
+  --flow-space-s: 0.5rlh;
+  --flow-space-l: 1.5rlh;
+  --flow-space-section: 2rlh;
+
   /* PADDING */
   --padding-section-block: 6rem;
   --padding-cards: 2rem;
@@ -40,28 +45,40 @@
 
   --letter-spacing: 14.5%;
 
-  /* HEIGHT */
-  --height-btns: 16px;
-
   /* ==== Typography ==== */
   /* FONT-SIZE */
-  --font-size-title: 3.75rem;
-  --font-size-heading-01: 3.125rem;
-  --font-size-heading-02: 2.8125rem;
-  --font-size-heading-03: 2.5rem;
-  --font-size-heading-04: 2.1875rem;
-  --font-size-heading-05: 1.875rem;
-  --font-size-heading-cards: 1.5625rem;
-  --font-size-p: 1.125rem;
+  /* Logo */
+  --font-size-logo: 1.875rem;
+
+  /* Overskrifter */
+  --heading-xl: 3.75rem;
+  --heading-l: 3.125rem;
+  --heading-m: 2.8rem;
+  --heading-sm: 2.2rem;
+  --heading-s: 1.875rem;
+  --heading-xs: 1.5rem;
+  --heading-xxs: 1.25rem;
+
+  /* Brødtekst */
+  --hero-text: 1.375rem;
+  --text-l: 1.125rem;
+  --text-s: 1rem;
+
+  /* Knapper */
   --font-size-btns: 1.125rem;
 
   /* FONT-WEIGHT */
   --font-weight-headings: 700;
   --font-weight-btns: 600;
 
+  /* MAX-WIDTH */
+  --max-width-hero-text: 50rem;
+  --max-width-text-content: 30rem;
+
   /* ==== Border Radii ==== */
-  --border-radius-cards: 20px;
   --border-radius-btns: 42px;
+  --border-radius-cards: 20px;
+  --border-radius-imgs: 20px;
 
   /* === Layout === */
   --content-column: min(600px, calc(50% - 1rem));

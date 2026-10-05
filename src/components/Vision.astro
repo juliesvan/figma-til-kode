@@ -1,0 +1,157 @@
+---
+import { Image } from "astro:assets";
+import visionImage from "@assets/images/vision.jpg";
+
+// Ikoner
+import Checkmark from "@icons/checkmark.svg";
+---
+
+<section class="vision-section">
+  <article class="vision-content">
+    <p class="eyebrow">Our Vision</p>
+    <h2>Turn your ideas into reality.</h2>
+    <p>
+      Capitalize on low hanging fruit to identify a ballpark value added
+      activity beta test. Override the digital divide with additional from
+      DevOps.
+    </p>
+    <ul>
+      <li>
+        <Checkmark class="checkmark" />
+        Bring to the table win-win survival strategies to ensure proactive domination.
+        At the end of the day.
+      </li>
+      <li>
+        <Checkmark class="checkmark" />
+        Capitalize on low hanging fruit to identify a ballpark value added activity
+        to beta test override the digital.
+      </li>
+    </ul>
+  </article>
+
+  <div class="vision-img">
+    <Image src={visionImage} alt="Team" />
+  </div>
+
+  <article class="vision-stats">
+    <div class="stat">
+      <h3>1128+</h3>
+      <p>Successful Work</p>
+    </div>
+    <div class="stat">
+      <h3>908+</h3>
+      <p>Team member</p>
+    </div>
+    <div class="stat">
+      <h3>258+</h3>
+      <p>Happy Customers</p>
+    </div>
+    <div class="stat">
+      <h3>564+</h3>
+      <p>Creative Idea</p>
+    </div>
+  </article>
+</section>
+
+<style>
+  @layer components {
+    .vision-section {
+      grid-column: full;
+      display: grid;
+      grid-template-columns: subgrid;
+      gap: 4rem;
+
+      padding-block: var(--padding-section-block);
+    }
+
+    .vision-content {
+      grid-column: content-start / middle;
+
+      /* For at .eyebrow flugter med den grønne boks er margin-top ændret. */
+      margin-top: -1.2rem;
+
+      h2 {
+        font-size: var(--heading-m);
+      }
+
+      h2 + p {
+        color: var(--color-text-muted);
+        font-size: var(--text-s);
+      }
+
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+
+        font-size: var(--text-s);
+        color: var(--color-text-muted);
+      }
+
+      .checkmark {
+        color: var(--color-ui-secondary-alternative);
+        margin-top: 0.3rem;
+        width: 2rem;
+      }
+    }
+
+    .vision-img {
+      grid-column: middle / content-end;
+
+      position: relative;
+      isolation: isolate;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: -1.2rem;
+        right: -2.3rem;
+        width: 9rem;
+        height: 8rem;
+        border-radius: var(--border-radius-cards);
+        background-color: var(--color-ui-secondary);
+        z-index: -1;
+      }
+    }
+
+    .vision-stats {
+      grid-column: content-start / content-end;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6rem;
+
+      .stat {
+        text-align: center;
+
+        h3 {
+          font-size: var(--heading-l);
+        }
+
+        p {
+          color: var(--color-text-muted);
+          font-size: var(--text-l);
+        }
+      }
+    }
+  }
+
+  /* Flow Space */
+  .vision-content > * + * {
+    margin-block-start: var(--flow-space);
+  }
+
+  h2,
+  h2 + p {
+    --flow-space: var(--flow-space-s);
+  }
+
+  .vision-content li + li {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  .stat h3 + p {
+    margin-block-start: var(--flow-space-s);
+  }
+</style>

@@ -43,3 +43,11 @@ export function getExperience() {
 export function getCoreValues() {
   return apiFetch("https://ftk-api.pages.dev/core-values");
 }
+
+export function getEmployees() {
+  return apiFetch("https://ftk-api.pages.dev/team");
+}
+
+export function getFAQ() {
+  return apiFetch("https://ftk-api.pages.dev/faq");
+}

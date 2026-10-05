@@ -8,26 +8,42 @@ const currentPath = Astro.url.pathname;
     <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
     <a
       href="/case-studies/"
-      aria-current={currentPath === "/case-studies" ? "page" : undefined}
-      >Case Studies</a
+      aria-current={currentPath.startsWith("/case-studies/")
+        ? "page"
+        : undefined}>Case Studies</a
     >
-    <a href="/team/" aria-current={currentPath === "/team" ? "page" : undefined}
+    <a
+      href="/team/"
+      aria-current={currentPath.startsWith("/team/") ? "page" : undefined}
       >Team</a
     >
     <a
       href="/about/"
-      aria-current={currentPath === "/about" ? "page" : undefined}>About</a
+      aria-current={currentPath === "/about/" ? "page" : undefined}>About</a
     >
   </nav>
-  <button>Login</button>
+  <button popovertarget="popover">Login</button>
 </header>
+
+<!-- Popover -->
+<div id="popover" popover="manual">
+  <h3>Dashboard Login</h3>
+  <form>
+    <div>
+      <label for="email">Email address</label>
+      <input id="email" type="email" />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" />
+    </div>
+    <button>Go to dashboard</button>
+  </form>
+</div>
 
 <style>
   @layer components {
     header {
-      /* Placeholder, så jeg kan style lettere */
-      /* margin-bottom: 400px; */
-
       grid-column: full;
       /* For at header ligger ovenover hero */
       grid-row: 1;
@@ -42,12 +58,7 @@ const currentPath = Astro.url.pathname;
       height: 100px;
       padding-inline: var(--content-column);
 
-      background-color: color-mix(
-        in srgb,
-        var(--color-ui-primary) 70%,
-        transparent
-      );
-      backdrop-filter: blur(21px);
+      background-color: var(--color-ui-primary);
 
       a {
         color: var(--color-on-ui-primary);
@@ -58,7 +69,7 @@ const currentPath = Astro.url.pathname;
         grid-column: content-start / middle;
         grid-row: 1;
 
-        font-size: var(--font-size-heading-05);
+        font-size: var(--font-size-logo);
         font-weight: var(--font-weight-headings);
       }
 
@@ -76,12 +87,13 @@ const currentPath = Astro.url.pathname;
       }
 
       nav a {
-        font-size: 1.125rem;
+        font-size: var(--text-l);
       }
 
       /* Aktiv side */
       nav a[aria-current="page"] {
         text-decoration: 4px underline var(--color-action);
+        text-underline-offset: 0.5rem;
       }
 
       /* LOGIN */
@@ -91,9 +103,67 @@ const currentPath = Astro.url.pathname;
         grid-row: 1;
         background-color: var(--color-on-ui-primary);
         color: var(--color-text);
-        font-size: 1.125rem;
+        font-size: var(--font-size-btns);
         border-radius: 999px;
         width: 94px;
+      }
+    }
+
+    [popovertarget] {
+      anchor-name: --login-btn;
+    }
+
+    [popover] {
+      --arrow-size: 0.6rem;
+      position-area: bottom;
+      margin: 0.6rem;
+      border: none;
+
+      background-color: var(--color-surface-secondary);
+      padding: 1.5rem;
+      border-radius: 20px;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        width: 100%;
+      }
+
+      label {
+        display: block;
+      }
+
+      input {
+        border: 1px solid #b1b1b1;
+        padding: var(--padding-btns);
+        border-radius: var(--border-radius-btns);
+        margin-top: 0.4rem;
+        width: 100%;
+      }
+
+      button {
+        background-color: var(--color-action);
+        padding: var(--padding-btns);
+        border-radius: var(--border-radius-btns);
+        font-size: var(--font-size-btns);
+        font-weight: var(--font-weight-btns);
+      }
+
+      /* Anker */
+      &::before {
+        content: "";
+        position: fixed;
+        width: calc(var(--arrow-size) * 1.667);
+        height: var(--arrow-size);
+        background: inherit;
+        clip-path: polygon(0 100%, 50% 0, 100% 100%);
+        position-anchor: --login-btn;
+        position-area: bottom;
+      }
+      &::backdrop {
+        background: rgba(0, 0, 0, 0.2);
       }
     }
   }

@@ -5,7 +5,7 @@
 <section>
   <div class="newsletter-content">
     <p>STAY UPDATED</p>
-    <h4>Subscribe Our Newsletter</h4>
+    <h2>Subscribe Our Newsletter</h2>
     <p>Build stronger Customer Relationships with <span>Consultalk</span></p>
     <div>
       <input type="text" placeholder="your mail address" />
@@ -42,12 +42,14 @@
         letter-spacing: 14.5%;
       }
 
-      h4 {
+      h2 {
         color: var(--color-on-ui-primary);
+        font-size: var(--heading-sm);
       }
 
-      h4 + p {
+      h2 + p {
         color: var(--color-text-weak);
+        font-size: var(--text-s);
       }
 
       span {
@@ -59,6 +61,7 @@
         border: 1px solid var(--color-on-ui-primary-muted);
         border-radius: 999px;
         width: 350px;
+        font-size: var(--text-s);
       }
 
       input::placeholder {
@@ -70,9 +73,22 @@
         background-color: var(--color-action);
         padding: var(--padding-btns);
         border-radius: var(--border-radius-btns);
+        font-size: var(--font-size-btns);
         font-weight: var(--font-weight-btns);
         width: 140px;
       }
+
+      button:hover {
+        background-color: hsl(from var(--color-action) h s calc(l + 8));
+      }
     }
+  }
+  /* Flow Space */
+  .newsletter-content > * + * {
+    margin-block-start: var(--flow-space-s);
+  }
+
+  .newsletter-content p + div {
+    margin-block-start: var(--flow-space-l);
   }
 </style>
